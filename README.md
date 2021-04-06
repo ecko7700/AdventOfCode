@@ -1,2 +1,3 @@
 # AdventOfCode
- AdventOfCode Scripts
+ AdventOfCode Scripts for calculating solutions to the problems
+ 
