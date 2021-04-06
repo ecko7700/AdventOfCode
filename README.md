@@ -1,5 +1,5 @@
 # AdventOfCode
- Public AdventOfCode Scripts for calculating solutions to the problems
+ A public repo of AdventOfCode Scripts for my solutions to the problems. 
  
  
  
