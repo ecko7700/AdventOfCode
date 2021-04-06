@@ -75,18 +75,15 @@ def test_password_new_policy(data_list):
         
         test_char = l1[1].split(':')[0]
         test_string = l1[2]
-        print(test_string)
         try:
             if test_string[test_pos_low] == test_char and test_string[test_pos_hgh] != test_char:
                 valid_pass_cnt +=1
             elif test_string[test_pos_hgh] == test_char and test_string[test_pos_low] != test_char:
                 valid_pass_cnt +=1
             else:
-                print("Invalid Password")
                 invalid_pass_cnt +=1
         except IndexError:
             invalid_pass_cnt +=1
-            print("Invalid Password")
     return valid_pass_cnt
 
 
