@@ -62,43 +62,56 @@ In this example, traversing the map using this slope would cause you to encounte
 Starting at the top-left corner of your map and following a slope of right 3 and down 1, how many trees would you encounter?
 """
 
+def create_expanded_slope():
+    file_name_1 = 'day3_2020_data.txt'
+    file_name_2 = 'day3_data_expanded.txt'
+    f1 = open(file_name_1, 'r')
+    f2 = open(file_name_2,'w')
+    for line in f1:
+        f2.write(line.split()[0]*100 + '\n')
+     
+    f1.close()
+    f2.close()
 
-file_name = 'day3_2020_data.txt'
-f = open(file_name, 'r')
-slope_list = []
-
-for line in f:
-    slope_list.append(line.split())
+def read_slope():
+    file_name_1 = 'day3_data_expanded.txt'
+    f1 = open(file_name_1, 'r')
+    slope_list = []
     
+    for line in f1:
+        slope_list.append(line.split())
+    
+    f1.close()
+    return slope_list
+
 def TobogganRoute(slope_list):
     sidecount = 0
     tree_count = 0
-    
+    file_name3 = 'day3_output.txt'
+    f3 = open(file_name3, 'w')
     for L_count,slope in enumerate(slope_list):
         sidecount +=3
         try:
             if slope_list[L_count+1][0][sidecount:sidecount+1] =='#':
                 tree_count +=1
                 newslope = slope_list[L_count+1][0][:sidecount]+'X'+slope_list[L_count+1][0][sidecount+1:]
-                print("Progress: " +newslope)
+                f3.write(newslope + '\n')
             else:
                 newslope = slope_list[L_count+1][0][:sidecount]+'O'+slope_list[L_count+1][0][sidecount+1:]
-                print("Progress: " +newslope)
+                f3.write(newslope + '\n')
         except IndexError:
             break
-    print("Tree Count: " + str(tree_count))
+    print("Trees hit: " + str(tree_count))
+    f3.close()
     return tree_count
 
 
 #Unit Test
-test_list = []
-test_file = 'test_data.txt'
-g = open(test_file, 'r')
-for slope in g:
-    test_list.append(slope.split())
+# test_list = []
+# test_file = 'test_data.txt'
+# g = open(test_file, 'r')
+# for slope in g:
+#     test_list.append(slope.split())
 
 if __name__ == '__main__':
-    if TobogganRoute(test_list)==7:
-        print("Test passed")
-    else:
-        print('Test Failed')
+    TobogganRoute(read_slope())
