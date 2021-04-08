@@ -68,7 +68,7 @@ def create_expanded_slope():
     f1 = open(file_name_1, 'r')
     f2 = open(file_name_2,'w')
     for line in f1:
-        f2.write(line.split()[0]*100 + '\n')
+        f2.write(line.split()[0]*100+ '\n')
      
     f1.close()
     f2.close()
@@ -84,20 +84,21 @@ def read_slope():
     f1.close()
     return slope_list
 
-def TobogganRoute(slope_list):
+def TobogganRoute(slope_list,right,down):
     sidecount = 0
     tree_count = 0
     file_name3 = 'day3_output.txt'
     f3 = open(file_name3, 'w')
-    for L_count,slope in enumerate(slope_list):
-        sidecount +=3
+    
+    for L in range(0,len(slope_list)+1,down):
+        sidecount +=right
         try:
-            if slope_list[L_count+1][0][sidecount:sidecount+1] =='#':
+            if slope_list[L+down][0][sidecount:sidecount+1] =='#':
                 tree_count +=1
-                newslope = slope_list[L_count+1][0][:sidecount]+'X'+slope_list[L_count+1][0][sidecount+1:]
+                newslope = slope_list[L+down][0][:sidecount]+'X'+slope_list[L+down][0][sidecount+1:]
                 f3.write(newslope + '\n')
             else:
-                newslope = slope_list[L_count+1][0][:sidecount]+'O'+slope_list[L_count+1][0][sidecount+1:]
+                newslope = slope_list[L+down][0][:sidecount]+'O'+slope_list[L+down][0][sidecount+1:]
                 f3.write(newslope + '\n')
         except IndexError:
             break
@@ -112,6 +113,10 @@ def TobogganRoute(slope_list):
 # g = open(test_file, 'r')
 # for slope in g:
 #     test_list.append(slope.split())
-
 if __name__ == '__main__':
-    TobogganRoute(read_slope())
+    test1 = TobogganRoute(read_slope(),1,1)
+    test2 = TobogganRoute(read_slope(),3,1)
+    test3 = TobogganRoute(read_slope(),5,1)
+    test4 = TobogganRoute(read_slope(),7,1)
+    test5 = TobogganRoute(read_slope(),1,2)
+    print(test1*test2*test3*test4*test5)
