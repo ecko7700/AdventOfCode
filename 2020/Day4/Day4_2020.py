@@ -51,11 +51,6 @@ According to the above rules, your improved system would report 2 valid passport
 
 Count the number of valid passports - those that have all required fields. Treat cid as optional. In your batch file, how many passports are valid?
 """
-
-
-
-
-
 def load_batch_data():
     file_name = 'Day4_data.txt'
     f1 = open(file_name,'r')
@@ -72,6 +67,7 @@ def load_batch_data():
             dict_passports[pass_port_count] = passports
             passports = []
             pass_port_count +=1
+    dict_passports[pass_port_count] = passports
     return dict_passports
 
 def load_test_data():
@@ -90,10 +86,11 @@ def load_test_data():
             dict_passports[pass_port_count] = passports
             passports = []
             pass_port_count +=1
+    dict_passports[pass_port_count] = passports
     return dict_passports
     
-
 def checkPassports(dict_passports):
+    print("Number of passports to test: "+ str(len(dict_passports.keys())))
     valid_count = 0
     valid_passports = {}
     for passport_ID in dict_passports:
@@ -106,12 +103,12 @@ def checkPassports(dict_passports):
         if (check_dict['byr'] == True) and (check_dict['iyr'] == True) and (check_dict['hgt'] == True) and (check_dict['eyr'] == True) and (check_dict['hcl'] == True) and (check_dict['ecl'] == True) and (check_dict['pid'] == True):
             valid_count += 1
             valid_passports[passport_ID] = "Valid"
+            print(dict_passports[passport_ID])
     
     return valid_count
 
-
 if __name__ == '__main__':
-    print(checkPassports(load_batch_data()))
+    print(str(checkPassports(load_batch_data()))+ " Valid passports")
     print("Running Unit Test")
     test = checkPassports(load_test_data())
     if test == 2:
