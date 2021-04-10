@@ -112,7 +112,7 @@ if __name__ == '__main__':
     print("Running Unit Test")
     test = checkPassports(load_test_data())
     if test == 2:
-        print("Unit succesful")
+        print("Unit Test succesful")
         print(test)
     else:
         print("Unit test failed")
