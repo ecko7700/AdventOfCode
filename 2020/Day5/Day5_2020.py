@@ -87,8 +87,17 @@ def getAllSeatID():
         decrypted_dict[seat[0]] = getSeatID(seat[0])
     return decrypted_dict
 
+def getYourSeat(seat_list):
+    t3 = seat_list.copy()
+    t3.sort()
+    for L,val in enumerate(t3):
+        if val != (t3[L+1]-1):
+            break
+    return (val+1)
+    
+print(getYourSeat(list(getAllSeatID().values())))
+
 print(getAllSeatID())
-print(getSeatID('FBFBBFFRLR'))
 if __name__ =='__main__':
     test_seat_IDs = {567 : 'BFFFBBFRRR', 119 : 'FFFBBBFRRR', 820 : 'BBFFBBFRLL'}
     for test_ID in test_seat_IDs:
