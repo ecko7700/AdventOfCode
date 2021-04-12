@@ -95,9 +95,8 @@ def getYourSeat(seat_list):
             break
     return (val+1)
     
-print(getYourSeat(list(getAllSeatID().values())))
+print("Your SeatID: " +str(getYourSeat(list(getAllSeatID().values()))))
 
-print(getAllSeatID())
 if __name__ =='__main__':
     test_seat_IDs = {567 : 'BFFFBBFRRR', 119 : 'FFFBBBFRRR', 820 : 'BBFFBBFRLL'}
     for test_ID in test_seat_IDs:
