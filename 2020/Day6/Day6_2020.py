@@ -79,10 +79,26 @@ def countQuestions(quest_dict):
         score_dict[ID] = score 
     return sum(list(score_dict.values()))
 
+#NEED TO FIX:__________________________
+def countQuestionsPart2(quest_dict):
+    score_dict = {}
+    for ID in quest_dict:
+        score = 0
+        temp_list = []
+        for value in quest_dict[ID]:
+            print(value)
+            for char in value:
+                if char not in temp_list:
+                    temp_list.append(char)
+        score +=1
+        print(temp_list)
+        score_dict[ID] = score 
+    return sum(list(score_dict.values()))
 
 #Unit Test
 test_dict = {1 : ['abc'], 2 : ['ab' , 'ac'], 3: ['a','b','c'], 4: ['a','a','a','a'], 5 : ['b']}
 print(countQuestions(test_dict))
+print(countQuestionsPart2(test_dict)) #3 + 1 + 0 + 1 + 1 = 6
 
 
 if __name__ == '__main__':
