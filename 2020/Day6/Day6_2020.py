@@ -50,7 +50,7 @@ In this example, the sum of these counts is 3 + 3 + 3 + 1 + 1 = 11.
 For each group, count the number of questions to which anyone answered "yes". What is the sum of those counts?
 """
 filename = 'Day6_data.txt'
-
+import string
 def loadfile(filename):
     f = open(filename, 'r')
     temp = []
@@ -85,14 +85,24 @@ def countQuestionsPart2(quest_dict):
     for ID in quest_dict:
         score = 0
         temp_list = []
-        for value in quest_dict[ID]:
-            print(value)
-            for char in value:
+        letter_dict = {}
+        lower_case = string.ascii_lowercase
+        for letters in lower_case:
+            letter_dict[letters] = 0
+        if len(quest_dict[ID]) ==1:
+            for char in quest_dict[ID][0]:
                 if char not in temp_list:
                     temp_list.append(char)
-        score +=1
-        print(temp_list)
-        score_dict[ID] = score 
+                    score += 1
+        else:    
+            for value in quest_dict[ID]:
+                num_list = len(quest_dict[ID])
+                for char in value:
+                    letter_dict[char] +=1
+            for vals in letter_dict:
+                if letter_dict[vals] == num_list:
+                    score += 1
+        score_dict[ID] = score
     return sum(list(score_dict.values()))
 
 #Unit Test
@@ -103,4 +113,5 @@ print(countQuestionsPart2(test_dict)) #3 + 1 + 0 + 1 + 1 = 6
 
 if __name__ == '__main__':
     print(countQuestions(loadfile(filename)))
+    print(countQuestionsPart2(loadfile(filename)))
     
