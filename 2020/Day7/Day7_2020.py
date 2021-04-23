@@ -75,6 +75,7 @@ def bag_dict_build():
         
     return bag_dict
 
+#TEST 
 if __name__ =='__main__':
     print(countSG())
     print(bag_dict_build())
