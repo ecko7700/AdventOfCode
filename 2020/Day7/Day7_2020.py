@@ -43,8 +43,10 @@ So, in this example, the number of bag colors that can eventually contain at lea
 
 How many bag colors can eventually contain at least one shiny gold bag? (The list of rules is quite long; make sure you get all of it.)
 """
-filename = 'Day7_data.txt'
+import unittest
 
+filename = 'Day7_data.txt'
+test_file = 'Unit_test_data.txt'
 def loaddata(filename):
     bag_data = []
     f = open(filename, 'r')
@@ -52,30 +54,42 @@ def loaddata(filename):
         bag_data.append(line.rstrip())
     return bag_data
 
-def countSG():
-    bag_list = loaddata(filename)
-    result = 0
+def SG_Check(data_name):
+    bag_list = bag_dict_build(test_file)
+    SG_dict = {}
     test_string = 'shiny gold'
-    for bags in bag_list:
-        if test_string in bags:
-            result += 1
-    return result
+    
+    for L in bag_list:
+        if test_string in bag_list[L][0]:
+            SG_dict[L] = True  
+    return SG_dict
 
-def bag_dict_build():
-    bag_list = loaddata(filename)
+def bag_dict_build(data_name):
+    bag_list = loaddata(data_name)
     bag_dict = {}
     bag_key = ''
     contain_find = 0
-    
+    temp = ''
     for bags in bag_list:
         contain_find = bags.find('contain')
         bag_key = bags[:contain_find-1]
-        bag_values = '' # NEED TO COMPLETE CODE FOR BAG VALUES
-        bag_dict[bag_key] = ''
+        bag_values = []
+        for char in bags[contain_find+8:]:
+            if char != ',' and char!='.':
+                temp += char
+            else:
+                bag_values.append(temp)
+                temp = ''
+        bag_dict[bag_key] = bag_values
         
     return bag_dict
 
-#TEST 
-if __name__ =='__main__':
-    print(countSG())
-    print(bag_dict_build())
+class TestColorCount(unittest.TestCase):
+    def test_SG(self):
+        self.assertEqual(SG_Check(test_file), 4)
+
+
+if __name__ == '__main__':
+
+    #unittest.main()
+    print(bag_dict_build(test_file))
