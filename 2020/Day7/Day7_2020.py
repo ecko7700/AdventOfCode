@@ -54,16 +54,6 @@ def loaddata(filename):
         bag_data.append(line.rstrip())
     return bag_data
 
-def SG_Check(data_name):
-    bag_list = bag_dict_build(test_file)
-    SG_dict = {}
-    test_string = 'shiny gold'
-    
-    for L in bag_list:
-        if test_string in bag_list[L][0]:
-            SG_dict[L] = True  
-    return SG_dict
-
 def bag_dict_build(data_name):
     bag_list = loaddata(data_name)
     bag_dict = {}
@@ -84,12 +74,50 @@ def bag_dict_build(data_name):
         
     return bag_dict
 
-class TestColorCount(unittest.TestCase):
-    def test_SG(self):
-        self.assertEqual(SG_Check(test_file), 4)
+def SG_recur(bag_list,test_string='shiny gold',SG_dict={}):
+    """
+    Parameters
+    ----------
+    bag_list : dict of bags
+    test_string : test string, optional
+        DESCRIPTION. The default is 'shiny gold'.
+    SG_dict : TYPE, optional
+        DESCRIPTION. The default is {}.
+    Returns
+    -------
+    SG_dict : TYPE
+        DESCRIPTION.
+
+    """
+    temp_dict = bag_list.copy()
+    if test_string == 'no other bags' or bag_list == {}:
+        return SG_dict
+    else:
+        for L in bag_list:
+            print("L: " + str(L))
+            for K in range(len(bag_list[L])):
+                print("K: " + str(K))
+                if test_string in bag_list[L][K]:
+                    SG_dict[L] = True
+                    temp_dict.pop(L)
+                elif 'no other bags' in bag_list[L][K]:
+                    temp_dict.pop(L)
+        for el in SG_dict:
+            test_string = el    
+        print("New bag list: " + str(temp_dict))
+        return SG_recur(temp_dict, test_string, SG_dict)
+
+bag_list = bag_dict_build(test_file)
+SG_recur(bag_list)
 
 
-if __name__ == '__main__':
 
-    #unittest.main()
-    print(bag_dict_build(test_file))
+# class TestColorCount(unittest.TestCase):
+#     def test_SG(self):
+#         self.assertEqual(SG_Check(test_file), 4)
+
+
+# if __name__ == '__main__':
+
+#     #unittest.main()
+#     print(bag_dict_build(test_file))
