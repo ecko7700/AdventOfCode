@@ -37,17 +37,7 @@ Calculate the horizontal position and depth you would have after following the p
 
 
 
-def import_data():
-    file_name = 'Data_Day2.txt'
-    f = open(file_name, 'r')
-    position_list = []
-    
-    for line in f:
-        position_list.append(line.strip())
-    
-    return position_list
-
-data = import_data()
+ 
 
 def calc_position(position_data):
     horizontal_pos = 0
